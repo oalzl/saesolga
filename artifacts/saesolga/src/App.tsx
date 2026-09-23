@@ -168,10 +168,20 @@ function Hero() {
     if (deltaX < 0 && slide < heroSlides.length) {
       setSlide((current) => current + 1);
     } else if (deltaX > 0) {
-      setSlide((current) =>
-        current === 0 ? heroSlides.length - 1 : current - 1
-      );
+      if (slide > 0) {
+        setSlide((current) => current - 1);
+      } else {
+        setIsTransitioning(false);
+        setSlide(heroSlides.length);
+
+        window.requestAnimationFrame(() => {
+        window.requestAnimationFrame(() => {
+          setIsTransitioning(true);
+          setSlide(heroSlides.length - 1);
+        });
+      });
     }
+}
   };
 
   return (
@@ -426,9 +436,19 @@ function Projects() {
     if (deltaX < 0 && slide < project.images.length) {
       setSlide((current) => current + 1);
     } else if (deltaX > 0) {
-      setSlide((current) =>
-        current === 0 ? heroSlides.length - 1 : current - 1
-      );
+      if (slide > 0) {
+        setSlide((current) => current - 1);
+      } else {
+        setIsTransitioning(false);
+        setSlide(heroSlides.length);
+
+        window.requestAnimationFrame(() => {
+          window.requestAnimationFrame(() => {
+            setIsTransitioning(true);
+            setSlide(heroSlides.length - 1);
+          });
+        });
+      }
     }
   };
 
