@@ -167,8 +167,10 @@ function Hero() {
     setIsTransitioning(true);
     if (deltaX < 0 && slide < heroSlides.length) {
       setSlide((current) => current + 1);
-    } else if (deltaX > 0 && slide > 0) {
-      setSlide((current) => current - 1);
+    } else if (deltaX > 0) {
+      setSlide((current) =>
+        current === 0 ? heroSlides.length - 1 : current - 1
+      );
     }
   };
 
@@ -249,12 +251,14 @@ function About() {
           src={asset('profile', 'ChatGPT Image 2026년 9월 22일 오후 06_23_38 2.png')}
           alt="대표 사상철"
         />
-        <a className="phone-badge" href="tel:01042199924" aria-label="010-4219-9924로 전화하기">
+        <a className="phone-badge" href="tel:01052572891" aria-label="010-5257-2891로 전화하기">
           <PhoneCall size={25} strokeWidth={2.4} />
         </a>
-        <div className="profile-qr reveal reveal-right reveal-delay-2" aria-hidden="true">
-          <QrCode size={62} strokeWidth={1.9} />
-        </div>
+       <img
+          className="profile-qr reveal reveal-right reveal-delay-2"
+          src="/qr_white_transparent.png"
+          alt=""
+        />
         <div className="profile-signature reveal reveal-right reveal-delay-3">
           <small>대표</small>
           <span>사상철</span>
@@ -421,8 +425,10 @@ function Projects() {
     setIsTransitioning(true);
     if (deltaX < 0 && slide < project.images.length) {
       setSlide((current) => current + 1);
-    } else if (deltaX > 0 && slide > 0) {
-      setSlide((current) => current - 1);
+    } else if (deltaX > 0) {
+      setSlide((current) =>
+        current === 0 ? heroSlides.length - 1 : current - 1
+      );
     }
   };
 
@@ -545,8 +551,8 @@ function Contact() {
         <span className="reveal reveal-down reveal-delay-4">인테리어 디자인 <b>새솔가</b></span>
       </div>
       <div className="contact-buttons">
-        <a className="primary" href="tel:01042199924">전화 상담</a>
-        <a href="sms:01042199924">문자 상담</a>
+        <a className="primary" href="tel:0226423769">전화 상담</a>
+        <a href="sms:01052572891">문자 상담</a>
       </div>
     </section>
   );

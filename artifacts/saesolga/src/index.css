@@ -10,8 +10,8 @@
 
 :root{--paper:#fff;--ink:#293c31;--green:#33463b;--green-light:#719a83;--grey:#e8e8e3;--line:#b8c2ba}
 *{box-sizing:border-box}
-html{background:#dfe2dc;scroll-behavior:smooth}
-body{margin:0;background:#dfe2dc;color:var(--ink);font-family:Paperlogy,sans-serif;font-weight:400;line-height:1.45;letter-spacing:-.01em}
+html{background:#dfe2dc;scroll-behavior:smooth;overscroll-behavior-y:none}
+body{margin:0;background:#dfe2dc;color:var(--ink);font-family:Paperlogy,sans-serif;font-weight:400;line-height:1.45;letter-spacing:-.01em;overscroll-behavior-y:none}
 button,a{font:inherit}
 button{cursor:pointer}
 img{display:block;max-width:100%}
@@ -48,7 +48,7 @@ img{display:block;max-width:100%}
 .profile-card{height:184px;position:relative;margin:0 0 31px;background:var(--green)}
 .profile-image{position:absolute;bottom:0;left:-10px;width:218px;height:327px;max-width:none;object-fit:contain;object-position:bottom}
 .phone-badge{position:absolute;top:-63px;right:0;width:45px;height:45px;border-radius:13px;background:#709780;display:grid;place-items:center;color:#fff;text-decoration:none}
-.profile-qr{position:absolute;right:21px;top:24px;color:#fff}
+.profile-qr{position:absolute;right:21px;top:24px;color:#fff;width:62px;height:62px}
 .profile-signature{position:absolute;right:22px;bottom:16px;display:flex;flex-direction:column;align-items:flex-end;gap:4px;color:#fff}
 .profile-signature small{font-size:11px;line-height:1}
 .profile-signature span{font:400 31px/1 Hand,cursive}
