@@ -1,0 +1,47 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "7DVLvSdwMbmbWiHVg67c0"
+uri = "file://.local/conversation-workspace/files/attached_assets/saesolga-mobile-preview.jpg"
+type = "image"
+title = "새솔가 모바일 웹사이트 미리보기"
+description = "압축 파일에 포함된 모바일 홈 화면 캡처입니다."
+logical_id = "185f4e0b-a46e-4d41-aa6c-b363c3367048"
+content_hash = "sha256:b8749ff5aba6d839f2291a11bb0415f2bccd80e1f25f04b9807d1ce46532307b"
+size = 35104
+mtime_ms = 1790185395998
+storage_uri = "gcs://replit-rams-assets-sisko/rams/assets/conversation:793a9103-f2ad-46b5-863e-03f4b1adb6cb/185f4e0b-a46e-4d41-aa6c-b363c3367048/016f21f2-a802-4c1d-95f5-4da37cc77fdf"
+storage_version_token = "1790185406284175"
+content_type = "image/jpeg"
+source_uri = "file://attached_assets/saesolga-mobile-preview.jpg"
+
+[[outputs]]
+id = "0xGEVgQpa8lmXpSz4sHO6"
+uri = "file://.local/conversation-workspace/files/attached_assets/saesolga-hero-full-mobile.jpg"
+type = "image"
+title = "새솔가 히어로 섹션"
+description = "모바일 첫 화면의 전체 히어로 이미지 캡처입니다."
+logical_id = "5045b377-61ff-42cf-a9a2-7d5b4d5de153"
+content_hash = "sha256:0cdbcdf21966c4092e00ce52f540bbc3ddb495b574bbcde9dc1dfe5dba9c92dd"
+size = 32638
+mtime_ms = 1790185396001
+storage_uri = "gcs://replit-rams-assets-sisko/rams/assets/conversation:793a9103-f2ad-46b5-863e-03f4b1adb6cb/5045b377-61ff-42cf-a9a2-7d5b4d5de153/97491cf9-6199-438a-b4a9-c48c9348137b"
+storage_version_token = "1790185416006951"
+content_type = "image/jpeg"
+source_uri = "file://attached_assets/saesolga-hero-full-mobile.jpg"
+
+[[outputs]]
+id = "skDmW8JLm4myo38-QV5Ab"
+uri = "file://.local/conversation-workspace/files/attached_assets/saesolga-project-carousel.jpg"
+type = "image"
+title = "새솔가 프로젝트 섹션"
+description = "프로젝트 카테고리와 대표 시공 사례가 보이는 모바일 화면 캡처입니다."
+logical_id = "d218443b-ae2c-4751-a2ec-ed6e9f1a9dde"
+content_hash = "sha256:7c1e53a6f357c509cc9c9da92bda1cb56df1f118eb1fbb5589e4b39cdc364460"
+size = 29320
+mtime_ms = 1790185396003
+storage_uri = "gcs://replit-rams-assets-sisko/rams/assets/conversation:793a9103-f2ad-46b5-863e-03f4b1adb6cb/d218443b-ae2c-4751-a2ec-ed6e9f1a9dde/32ec2083-fee3-4a65-a4a0-757cc83691a3"
+storage_version_token = "1790185417400144"
+content_type = "image/jpeg"
+source_uri = "file://attached_assets/saesolga-project-carousel.jpg"
