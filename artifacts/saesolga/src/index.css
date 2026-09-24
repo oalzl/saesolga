@@ -156,14 +156,14 @@ button:focus-visible,a:focus-visible{outline:2px solid #c28157;outline-offset:3p
 .reveal.is-visible.reveal-scale{transform:scale(1)}
 .reveal.is-visible.reveal-line{transform:scaleY(1)}
 .reveal-delay-1{--reveal-delay:0ms}
-.reveal-delay-2{--reveal-delay:500ms}
-.reveal-delay-3{--reveal-delay:1000ms}
-.reveal-delay-4{--reveal-delay:1500ms}
-.reveal-delay-5{--reveal-delay:2000ms}
+.reveal-delay-2{--reveal-delay:150ms}
+.reveal-delay-3{--reveal-delay:300ms}
+.reveal-delay-4{--reveal-delay:450ms}
+.reveal-delay-5{--reveal-delay:600ms}
 .career .career-delay-1{--reveal-delay:0ms}
-.career .career-delay-2{--reveal-delay:500ms}
-.career .career-delay-3{--reveal-delay:1000ms}
-.career .career-delay-4{--reveal-delay:1500ms}
+.career .career-delay-2{--reveal-delay:300ms}
+.career .career-delay-3{--reveal-delay:600ms}
+.career .career-delay-4{--reveal-delay:900ms}
 
 @media (prefers-reduced-motion:no-preference){
   @keyframes partner-marquee{from{transform:translateX(0)}to{transform:translateX(calc(-50% - 19px))}}
