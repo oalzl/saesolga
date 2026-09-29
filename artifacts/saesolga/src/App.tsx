@@ -5,11 +5,6 @@ import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
 
 const asset = (folder: string, name: string) => `/assets/${folder}/${encodeURIComponent(name)}`;
-const heroSlides = [
-  asset('hero', 'hero-profile.jpg'),
-  asset('hero', 'image 30.png'),
-  asset('hero', '2 21.png'),
-];
 const partnerAssets = ['한샘_로고_(2).png', 'KD_Navien_BI.png', '154756.png', '삼성_로고_(1).png', 'images.png', 'image 3ad0.png', 'image 31.png', 'img_logo_big.png'];
 const projectImages = {
   apartment: ['KakaoTalk_20260916_175847564_02.jpg', 'KakaoTalk_20260916_175847564_01.jpg', 'KakaoTalk_20260916_175847564.jpg', 'KakaoTalk_20260923_214628190_01.jpg', 'KakaoTalk_20260923_214628190_02.jpg'],
@@ -48,40 +43,32 @@ function SectionLabel({ number, children, light = false }: { number: string; chi
 }
 
 function Hero() {
-  const [slide, setSlide] = useState(0);
-  const touchStartX = useRef<number | null>(null);
-  useEffect(() => {
-    const timer = window.setTimeout(() => setSlide((current) => (current + 1) % heroSlides.length), 4500);
-    return () => window.clearTimeout(timer);
-  }, [slide]);
-  const handleTouchStart = (event: TouchEvent<HTMLElement>) => { touchStartX.current = event.touches[0]?.clientX ?? null; };
-  const handleTouchEnd = (event: TouchEvent<HTMLElement>) => {
-    const start = touchStartX.current;
-    touchStartX.current = null;
-    const end = event.changedTouches[0]?.clientX;
-    if (start === null || end === undefined || Math.abs(end - start) < 40) return;
-    setSlide((current) => end < start ? (current + 1) % heroSlides.length : (current - 1 + heroSlides.length) % heroSlides.length);
-  };
   return (
-    <section className="hero" id="hero" aria-label="새솔가 대표 이미지" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
-      <div className="hero-track" style={{ transform: `translateX(-${slide * 100}%)` }}>
-        {heroSlides.map((image) => <img className="hero-image" src={image} alt="" key={image} />)}
-      </div>
-      {slide !== 0 && <img className="hero-mark" src={asset('logo', 'ㄱ.png')} alt="" />}
-      <div className="hero-controls">
-        <div className="hero-dots" aria-label="대표 이미지 선택">{heroSlides.map((image, index) => <button key={image} className={`hero-dot${slide === index ? ' is-active' : ''}`} type="button" aria-label={`${index + 1}번째 대표 이미지`} aria-pressed={slide === index} onClick={() => setSlide(index)} />)}</div>
-        <span>{String(slide + 1).padStart(2, '0')} / 03</span>
-      </div>
+    <section className="hero" id="hero" aria-label="새솔가 대표 이미지">
+      <img className="hero-image" src={asset('hero', 'ssd.png')} alt="새솔가 대표 사상철" />
     </section>
   );
 }
 
 function Intro() {
+  const [shared, setShared] = useState(false);
+  const sharePage = async () => {
+    const shareData = { title: '새솔가 인테리어', text: '인테리어 디자인 새솔가', url: window.location.href };
+    try {
+      if (navigator.share) await navigator.share(shareData);
+      else await navigator.clipboard?.writeText(window.location.href);
+      setShared(true);
+      window.setTimeout(() => setShared(false), 1800);
+    } catch {
+      setShared(false);
+    }
+  };
   return (
     <section className="intro" id="intro" aria-label="새솔가 상담 연락처">
       <div className="intro-actions">
         <a href="tel:01052572891"><PhoneCall /> 통화 연결</a>
         <a href="sms:01052572891"><Mail /> 문자 전송</a>
+        <button type="button" onClick={sharePage}><img src={asset('icons', 'qr-code.png')} alt="" /> {shared ? '공유 완료' : 'QR 코드 공유'}</button>
       </div>
       <div className="intro-details">
         <img src={asset('icons', 'qr-code.png')} alt="" />
@@ -135,6 +122,7 @@ function Certificate() {
   return (
     <section className="certificate section-paper" id="certificate">
       <SectionLabel number="03">자격 / 증명</SectionLabel>
+      <div className="certificate-watermark" aria-hidden="true">CERTI<br />FICATION</div>
       <div className="certificate-list">{cards.map((card) => <article className="certificate-card" key={card.image}><img src={card.image} alt={card.title} /><div className="certificate-info"><small>{card.eyebrow}</small><strong>{card.title}</strong><em>{card.sub}</em><button type="button" onClick={() => setOpen(card.image)}>자세히 보기 <span aria-hidden="true">↗</span></button></div></article>)}</div>
       <div className="partners"><h3>PARTNER</h3><div className="partner-marquee">{[partnerAssets.slice(0, 4), partnerAssets.slice(4)].map((row, rowIndex) => <div className="partner-marquee-row" key={rowIndex}><div className="partner-marquee-track">{[...row, ...row].map((name, index) => <img key={`${name}-${index}`} src={asset('partners', name)} alt="" />)}</div></div>)}</div></div>
       {open && <div className="lightbox" role="dialog" aria-modal="true" aria-label="증명서 크게 보기" onClick={() => setOpen(null)}><div className="lightbox-card" onClick={(event) => event.stopPropagation()}><button type="button" className="lightbox-close" aria-label="닫기" onClick={() => setOpen(null)}><X size={22} /></button><img src={open} alt="증명서" /></div></div>}
@@ -145,18 +133,19 @@ function Certificate() {
 function News() {
   const [slide, setSlide] = useState(0);
   const touchStartX = useRef<number | null>(null);
+  const newsPages = Array.from({ length: Math.ceil(newsItems.length / 2) }, (_, index) => newsItems.slice(index * 2, index * 2 + 2));
   const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => { touchStartX.current = event.touches[0]?.clientX ?? null; };
   const handleTouchEnd = (event: TouchEvent<HTMLDivElement>) => {
     const start = touchStartX.current; touchStartX.current = null;
     const end = event.changedTouches[0]?.clientX;
     if (start === null || end === undefined || Math.abs(end - start) < 40) return;
-    setSlide((current) => end < start ? Math.min(current + 1, newsItems.length - 1) : Math.max(current - 1, 0));
+    setSlide((current) => end < start ? Math.min(current + 1, newsPages.length - 1) : Math.max(current - 1, 0));
   };
   return (
     <section className="news section-paper" id="news">
       <SectionLabel number="04">기사 / 인터뷰</SectionLabel>
-      <div className="news-track" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd} style={{ transform: `translateX(-${slide * 342}px)` }}>{newsItems.map((item) => <article className="news-card" key={item.title}><img src={item.image} alt="" /><h3>{item.title}</h3><p>{item.excerpt}</p></article>)}</div>
-      <div className="news-dots" aria-label="뉴스 선택">{newsItems.map((item, index) => <i className={slide === index ? 'is-active' : ''} key={item.title} />)}</div>
+      <div className="news-track" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd} style={{ transform: `translateX(-${slide * 342}px)` }}>{newsPages.map((page, pageIndex) => <div className="news-page" key={pageIndex}>{page.map((item) => <article className="news-card" key={item.title}><img src={item.image} alt="" /><h3>{item.title}</h3><p>{item.excerpt}</p></article>)}</div>)}</div>
+      <div className="news-dots" aria-label="뉴스 선택">{newsPages.map((_, index) => <i className={slide === index ? 'is-active' : ''} key={index} />)}</div>
     </section>
   );
 }
