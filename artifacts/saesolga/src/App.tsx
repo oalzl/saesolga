@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type ReactNode, type TouchEvent } from 'react';
-import { Mail, PhoneCall, X } from 'lucide-react';
+import { X } from 'lucide-react';
 import { ErrorBoundary } from '@/components/error-boundary';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
@@ -66,10 +66,10 @@ function Intro() {
   return (
     <section className="intro" id="intro" aria-label="새솔가 상담 연락처">
       <div className="intro-actions">
-        <a href="tel:01052572891"><PhoneCall /> 통화 연결</a>
-        <a href="sms:01052572891"><Mail /> 문자 전송</a>
-        <button type="button" onClick={sharePage}><img src={asset('icons', 'qr-code.png')} alt="" /> {shared ? '공유 완료' : 'QR 코드 공유'}</button>
+        <a href="tel:01052572891"><img src={asset('icons', 'phone.png')} alt="" /> 통화 연결</a>
+        <a href="sms:01052572891"><img src={asset('icons', 'mail.png')} alt="" /> 문자 전송</a>
       </div>
+      <button className="intro-share" type="button" onClick={sharePage}><img src={asset('icons', 'qr-code.png')} alt="" /> {shared ? '공유 완료' : 'QR 코드 공유'}</button>
       <div className="intro-details">
         <img src={asset('icons', 'qr-code.png')} alt="" />
         <p>M. 010-5257-2891</p>
