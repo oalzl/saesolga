@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "새솔가 모바일 웹사이트"
+description = "새솔가 인테리어 디자인의 모바일 브랜드 사이트. 소개, 경력, 인증, 프로젝트, 서비스, 문의 정보를 한 페이지에서 제공합니다."
+version = "1.0.0"
+id = "artifacts/saesolga"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 21018
+
+[services.development]
+run = "pnpm --filter @workspace/saesolga run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/saesolga", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/saesolga/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "21018"
+BASE_PATH = "/"
