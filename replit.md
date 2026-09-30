@@ -1,40 +1,45 @@
-# [Project name]
+# 새솔가 모바일 웹사이트
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+새솔가 인테리어의 브랜드 소개와 프로젝트·서비스·문의 정보를 제공하는 모바일 중심 웹사이트입니다.
 
 ## Run & Operate
 
-- `pnpm --filter @workspace/api-server run dev` — run the API server (port 5000)
-- `pnpm run typecheck` — full typecheck across all packages
-- `pnpm run build` — typecheck + build all packages
-- `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
-- `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
-- Required env: `DATABASE_URL` — Postgres connection string
+- `pnpm --filter @workspace/saesolga run dev` — run the website preview
+- `pnpm --filter @workspace/saesolga run typecheck` — typecheck the website
+- `pnpm --filter @workspace/saesolga run build` — build the website for production
+- `pnpm --filter @workspace/api-server run dev` — run the API server when working on API features
+- The website does not require environment secrets for its current public-facing pages.
 
 ## Stack
 
-- pnpm workspaces, Node.js 24, TypeScript 5.9
-- API: Express 5
-- DB: PostgreSQL + Drizzle ORM
-- Validation: Zod (`zod/v4`), `drizzle-zod`
-- API codegen: Orval (from OpenAPI spec)
-- Build: esbuild (CJS bundle)
+- pnpm workspaces, Node.js, TypeScript, React, and Vite
+- Website: `artifacts/saesolga`
+- Supporting API: Express (`artifacts/api-server`)
+- Shared API client, API schema, and database packages: `lib/`
 
 ## Where things live
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+- `artifacts/saesolga/src/App.tsx` — website sections and interactions
+- `artifacts/saesolga/src/index.css` — layout, typography, and responsive styles
+- `artifacts/saesolga/public/assets/` — supplied images, icons, and font files
+- `artifacts/api-server/src/` — API routes and server setup
+- `lib/api-spec/` — API contract; `lib/db/` — database schema
 
 ## Architecture decisions
 
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
+- The website and supporting API are separate workspace artifacts with independent workflows.
+- Keep supplied brand assets and fonts under the website's public assets so the static site can load them directly.
 
 ## Product
 
-_Describe the high-level user-facing capabilities of this app once they exist._
+The site presents the company introduction, credentials, partners, news, projects, services, and contact options in a mobile-first single-page layout.
 
 ## User preferences
 
-_Populate as you build — explicit user instructions worth remembering across sessions._
+- Keep the full supplied `ssd.png` image visible without cropping while sizing the hero to the mobile viewport. Do not add a separate black background behind the contact controls; the dark lower area is already part of the image.
+- Keep the contact buttons and contact details overlaid on the lower part of that image.
+- The hero phone and SMS buttons open the device's call and messaging apps; the QR button opens the supplied QR image in a popup.
+- Preserve existing non-hero animations when adjusting visual sections.
 
 ## Gotchas
 
