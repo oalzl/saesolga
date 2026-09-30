@@ -2,3 +2,4 @@
 - [Preview DOM instrumentation](preview-dom-instrumentation.md) — development previews may add metadata attributes to markup; avoid exact innerHTML assertions.
 - [Publisher image checks](publisher-image-checks.md) — some news CDNs return 404 to HEAD but serve images with GET; confirm in browser before replacing thumbnails.
 - [Hero proportions](hero-proportions.md) — on short phones, let the hero scroll rather than stretch or crop the portrait or push controls over the artwork.
+- [News card motion](news-card-motion.md) — keep two news cards moving as a pair with a visible gap between pages, so the card borders clearly slide.

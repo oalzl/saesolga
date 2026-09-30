@@ -196,30 +196,56 @@ function Certificate() {
 }
 
 function News() {
-  const [slide, setSlide] = useState(0);
+  const pageGap = 12;
+  const [slide, setSlide] = useState(1);
+  const [isTransitioning, setIsTransitioning] = useState(true);
   const touchStartX = useRef<number | null>(null);
   const lastSwipeAt = useRef(0);
+  const activePage = (slide - 1 + newsPages.length) % newsPages.length;
+  const loopedPages = [newsPages[newsPages.length - 1], ...newsPages, newsPages[0]];
   useEffect(() => {
-    const timer = window.setTimeout(() => setSlide((current) => (current + 1) % newsPages.length), 3600);
+    const timer = window.setTimeout(() => setSlide((current) => current + 1), 3600);
     return () => window.clearTimeout(timer);
-  }, [newsPages.length, slide]);
+  }, [slide]);
+  useEffect(() => {
+    if (isTransitioning) return undefined;
+    let secondFrame = 0;
+    const firstFrame = window.requestAnimationFrame(() => {
+      secondFrame = window.requestAnimationFrame(() => setIsTransitioning(true));
+    });
+    return () => {
+      window.cancelAnimationFrame(firstFrame);
+      window.cancelAnimationFrame(secondFrame);
+    };
+  }, [isTransitioning]);
   const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => { touchStartX.current = event.touches[0]?.clientX ?? null; };
   const handleTouchEnd = (event: TouchEvent<HTMLDivElement>) => {
     const start = touchStartX.current; touchStartX.current = null;
     const end = event.changedTouches[0]?.clientX;
     if (start === null || end === undefined || Math.abs(end - start) < 40) return;
     lastSwipeAt.current = Date.now();
-    setSlide((current) => end < start ? Math.min(current + 1, newsPages.length - 1) : Math.max(current - 1, 0));
+    setSlide((current) => Math.max(0, Math.min(current + (end < start ? 1 : -1), newsPages.length + 1)));
+  };
+  const goToPage = (index: number) => {
+    if (slide === newsPages.length && index === 0) setSlide(newsPages.length + 1);
+    else if (slide === 1 && index === newsPages.length - 1) setSlide(0);
+    else setSlide(index + 1);
   };
   return (
     <section className="news section-paper" id="news">
       <SectionLabel number="04">기사 / 인터뷰</SectionLabel>
       <div className="news-viewport">
-        <div className="news-track" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd} style={{ transform: `translateX(-${slide * 100}%)` }}>
-          {newsPages.map((page, pageIndex) => (
-            <div className="news-page" key={pageIndex}>
+        <div className="news-track" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd} onTransitionEnd={(event) => {
+          if (event.target !== event.currentTarget || event.propertyName !== 'transform') return;
+          if (slide === 0 || slide === newsPages.length + 1) {
+            setIsTransitioning(false);
+            setSlide(slide === 0 ? newsPages.length : 1);
+          }
+        }} style={{ gap: pageGap, transform: `translateX(calc(-${slide * 100}% - ${slide * pageGap}px))`, transition: isTransitioning ? undefined : 'none' }}>
+          {loopedPages.map((page, pageIndex) => (
+            <div className="news-page" key={pageIndex} aria-hidden={pageIndex === 0 || pageIndex === newsPages.length + 1 ? true : undefined}>
               {page.map((item) => (
-                <a className="news-card" href={item.url} target="_blank" rel="noopener noreferrer" key={item.url} onClick={(event) => { if (Date.now() - lastSwipeAt.current < 500) event.preventDefault(); }}>
+                <a className="news-card" href={item.url} target="_blank" rel="noopener noreferrer" tabIndex={pageIndex === 0 || pageIndex === newsPages.length + 1 ? -1 : undefined} key={item.url} onClick={(event) => { if (Date.now() - lastSwipeAt.current < 500) event.preventDefault(); }}>
                   <img src={item.image} alt="" referrerPolicy="no-referrer" />
                   <h3>{item.title}</h3>
                   <p>{item.excerpt}</p>
@@ -230,7 +256,7 @@ function News() {
         </div>
       </div>
       <div className="news-dots" role="group" aria-label="기사 페이지 선택">
-        {newsPages.map((_, index) => <button className={slide === index ? 'is-active' : ''} type="button" aria-label={`기사 ${index + 1}페이지 보기`} aria-current={slide === index ? 'page' : undefined} onClick={() => setSlide(index)} key={index} />)}
+        {newsPages.map((_, index) => <button className={activePage === index ? 'is-active' : ''} type="button" aria-label={`기사 ${index + 1}페이지 보기`} aria-current={activePage === index ? 'page' : undefined} onClick={() => goToPage(index)} key={index} />)}
       </div>
     </section>
   );
