@@ -101,12 +101,14 @@ function Hero() {
 
   return (
     <section className="hero" id="hero" aria-label="새솔가 대표 이미지">
-      <img className="hero-image" src={asset('hero', 'ssd.png')} alt="새솔가 대표 사상철" />
-      <div className="hero-intro">
-        <span>새솔가 인테리어</span>
-        <small>대표</small>
-        <strong>사상철</strong>
-        <em>SA S.C.</em>
+      <div className="hero-visual">
+        <img className="hero-image" src={asset('hero', 'ssd.png')} alt="새솔가 대표 사상철" />
+        <div className="hero-intro">
+          <span>새솔가 인테리어</span>
+          <small>대표</small>
+          <strong>사상철</strong>
+          <em>SA S.C.</em>
+        </div>
       </div>
       <div className="hero-contact" id="hero-contact">
         <div className="intro-actions">
@@ -133,9 +135,8 @@ function Hero() {
       </div>
       {qrOpen && createPortal(
         <div className="qr-overlay" role="presentation" onClick={() => setQrOpen(false)}>
-          <div className="qr-dialog" role="dialog" aria-modal="true" aria-labelledby="qr-title" onClick={(event) => event.stopPropagation()}>
+          <div className="qr-dialog" role="dialog" aria-modal="true" aria-label="새솔가 인테리어 QR 코드" onClick={(event) => event.stopPropagation()}>
             <button ref={closeButtonRef} className="qr-close" type="button" aria-label="QR 코드 닫기" onClick={() => setQrOpen(false)}><X size={22} /></button>
-            <h2 id="qr-title">새솔가 인테리어 QR 코드</h2>
             <img src={asset('icons', 'qr-share.png')} alt="새솔가 인테리어 QR 코드" />
           </div>
         </div>,

@@ -1,3 +1,4 @@
 - [Transparent image previews](transparent-image-previews.md) — file viewers may paint transparent pixels black; inspect alpha before adding CSS backgrounds to supplied artwork.
 - [Preview DOM instrumentation](preview-dom-instrumentation.md) — development previews may add metadata attributes to markup; avoid exact innerHTML assertions.
 - [Publisher image checks](publisher-image-checks.md) — some news CDNs return 404 to HEAD but serve images with GET; confirm in browser before replacing thumbnails.
+- [Hero proportions](hero-proportions.md) — on short phones, let the hero scroll rather than stretch or crop the portrait or push controls over the artwork.
