@@ -17,8 +17,8 @@ button,a{font:inherit}button{cursor:pointer}img{display:block;max-width:100%}
 .site{width:100%;max-width:402px;margin:0 auto;background:var(--paper);overflow:hidden}
 .section-paper{background:var(--paper)}.section-grey{background:#b9b9b4}
 
-.hero{height:575px;position:relative;background:#fff;color:#fff;overflow:hidden;touch-action:pan-y}
-.hero-image{width:100%;height:100%;object-fit:cover;object-position:center top}
+.hero{height:575px;position:relative;background:transparent;color:#fff;overflow:hidden;touch-action:pan-y}
+.hero-image{width:100%;height:100%;object-fit:contain;object-position:center top;display:block}
 
 .intro{min-height:176px;position:relative;overflow:hidden;background:#090909;color:#fff;padding:18px 20px 20px}
 .intro-actions{display:grid;grid-template-columns:1fr 1fr;gap:6px}.intro-actions a,.intro-share{height:42px;background:#fbfbfa;color:#111;display:flex;gap:6px;align-items:center;justify-content:center;text-decoration:none;font-size:12px;font-weight:600;border:0;padding:0;white-space:nowrap}.intro-actions img,.intro-share img{width:17px;height:17px;object-fit:contain}.intro-share{width:100%;margin-top:6px}
